@@ -44,6 +44,7 @@ builder.Services
   });
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
+builder.WebHost.UseUrls("http://*:80");
 #endregion
 builder.Services.AddOpenApi();
 var app = builder.Build();
@@ -64,7 +65,6 @@ using (var scope = app.Services.CreateScope())
     var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
     initializer.Initialize();
 }
-app.MapGet("/", () => "Service running");
 app.MapGet("/health", () => "Service running");
 app.Run();
 

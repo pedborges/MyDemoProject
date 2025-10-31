@@ -27,30 +27,7 @@ RUN dotnet publish ${PROJECT_NAME}/${PROJECT_NAME}.csproj \
 
 #  stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS final
-
 WORKDIR /app
-
-# Copia arquivos da etapa anterior
 COPY --from=build /app/publish .
-
-
 EXPOSE 80
-
-
-#  Add dummy JWT variables so app doesn't crash on startup
-# (App Runner will not have your appsettings.json by default)
-ENV Jwt__Key="temporary_secret"
-ENV Jwt__Issuer="apprunner"
-ENV Jwt__Audience="apprunner"
-
-# Move SQLite DB to writable area (/tmp)
-ENV ConnectionStrings__Default="Data Source=/tmp/app.db"
-
-# 5 Add health check for AWS App Runner
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget -qO- http://localhost:80/health || exit 1
-
-# ------------------------------------------------------
-# Run the app
-# ------------------------------------------------------
 ENTRYPOINT ["dotnet", "Api.dll"]
