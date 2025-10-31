@@ -10,7 +10,7 @@ COPY Api/Api.csproj Api/
 COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
-COPY Infrastructure/TokenService.csproj Infrastructure/
+COPY TokenService/TokenService.csproj Infrastructure/
 RUN dotnet restore MySolution.sln
 COPY . .
 RUN dotnet publish ./${PROJECT_NAME}/${PROJECT_NAME}.csproj \
