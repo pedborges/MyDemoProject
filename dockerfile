@@ -15,7 +15,7 @@ COPY . .
 RUN dotnet publish ./${PROJECT_NAME}/${PROJECT_NAME}.csproj \
     -c $BUILD_CONFIGURATION -o /out \ --no-restore 
 
-FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION}-alpine AS final
 WORKDIR /app
 COPY --from=build /out .
 EXPOSE 8080
