@@ -1,0 +1,16 @@
+tests/
+**/bin/
+**/obj/
+.git
+.git/
+.vscode
+.vscode/
+.idea/
+Dockerfile 
+dockerfile 
+*.md
+*.yml
+*.yaml
+ps1
+*.sh
+*.json
