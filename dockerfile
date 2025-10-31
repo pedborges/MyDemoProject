@@ -36,8 +36,6 @@ COPY --from=build /app/publish .
 
 EXPOSE 80
 
-# Comando de execução
-ENV ASPNETCORE_URLS=http://0.0.0.0:80
 
 #  Add dummy JWT variables so app doesn't crash on startup
 # (App Runner will not have your appsettings.json by default)
