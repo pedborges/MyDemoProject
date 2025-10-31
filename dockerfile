@@ -34,8 +34,8 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Define porta (opcional - para documentação)
+ENV ASPNETCORE_URLS=http://0.0.0.0:80
 EXPOSE 80
-ENV ASPNETCORE_URLS=http://+:80
 
 # Comando de execução
 ENTRYPOINT ["dotnet", "Api.dll"]
