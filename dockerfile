@@ -5,11 +5,12 @@ ARG DOTNET_VERSION=9.0
 
 FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION} AS build
 WORKDIR /src
-COPY MySolution.sln ./
+COPY MyDemoProject.sln ./
 COPY Api/Api.csproj Api/
 COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
+COPY Infrastructure/TokenService.csproj Infrastructure/
 RUN dotnet restore MySolution.sln
 COPY . .
 RUN dotnet publish ./${PROJECT_NAME}/${PROJECT_NAME}.csproj \
