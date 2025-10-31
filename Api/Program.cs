@@ -3,6 +3,7 @@ using Application.Common;
 using Application.UseCases;
 using Domain.Contracts;
 using Infrastructure;
+using Infrastructure.DbClient;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -55,11 +56,14 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/openapi/v1.json", "MyDemoProject API v1");
     });
 }
-
-app.UseHttpsRedirection();
-
+//app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
+    initializer.Initialize();
+}
 app.Run();
 

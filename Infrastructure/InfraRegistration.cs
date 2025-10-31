@@ -20,6 +20,7 @@ namespace Infrastructure
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISellRepository, SellRepository>();
+            services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
             return services;
         }
     }
