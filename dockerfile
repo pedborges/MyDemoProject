@@ -11,7 +11,7 @@ COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY Infrastructure/Infrastructure.csproj Infrastructure/
 COPY TokenService/TokenService.csproj Infrastructure/
-RUN dotnet restore MySolution.sln
+RUN dotnet restore MyDemoProject.sln
 COPY . .
 RUN dotnet publish ./${PROJECT_NAME}/${PROJECT_NAME}.csproj \
     -c $BUILD_CONFIGURATION -o /out \ --no-restore 
