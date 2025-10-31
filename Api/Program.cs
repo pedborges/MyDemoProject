@@ -65,5 +65,6 @@ using (var scope = app.Services.CreateScope())
     var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
     initializer.Initialize();
 }
+app.MapGet("/", () => "Service running");
 app.Run();
 
