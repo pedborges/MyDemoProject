@@ -35,6 +35,7 @@ COPY --from=build /app/publish .
 
 # Define porta (opcional - para documentação)
 EXPOSE 80
+ENV ASPNETCORE_URLS=http://+:80
 
 # Comando de execução
 ENTRYPOINT ["dotnet", "Api.dll"]
