@@ -24,7 +24,7 @@ namespace Infrastructure.DbClient
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         { 
             if (!options.IsConfigured)
-                options.UseSqlite("Data Source=app.db");
+                options.UseSqlite("Data Source=/tmp/app.db");
         }
     }
 }
