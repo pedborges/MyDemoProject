@@ -33,8 +33,7 @@ WORKDIR /app
 # Copia arquivos da etapa anterior
 COPY --from=build /app/publish .
 
-# Define porta (opcional - para documentação)
-ENV ASPNETCORE_URLS=http://0.0.0.0:80
+
 EXPOSE 80
 
 # Comando de execução
