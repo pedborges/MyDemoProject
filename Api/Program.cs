@@ -66,5 +66,6 @@ using (var scope = app.Services.CreateScope())
     initializer.Initialize();
 }
 app.MapGet("/", () => "Service running");
+app.MapGet("/health", () => "Service running");
 app.Run();
 
