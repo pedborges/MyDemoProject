@@ -33,8 +33,10 @@ RUN dotnet publish ${PROJECT_NAME}/${PROJECT_NAME}.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS final
 WORKDIR /app
 COPY --from=build /app/publish .
+
 ENV ASPNETCORE_URLS=http://0.0.0.0:8080 \
     ASPNETCORE_ENVIRONMENT=Production \
     DOTNET_EnableDiagnostics=0
+
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["./Api"]
