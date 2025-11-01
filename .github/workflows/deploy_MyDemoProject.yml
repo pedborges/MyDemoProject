@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-2
   ECR_REPOSITORY: demo_project_repository
   IMAGE_TAG: latest
 
@@ -25,7 +25,7 @@ jobs:
     - name: Configure AWS credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::795772440200:role/GitHubActionsECRPushRole
+        role-to-assume: arn:aws:iam::720283940682:role/GitHub_Action_Permissions
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
