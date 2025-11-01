@@ -66,6 +66,6 @@ Task.Run(() =>
     var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
     initializer.Initialize();
 });
-app.MapGet("/health", () => "Service running");
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 app.Run();
 Console.WriteLine("✅ Application started and listening on port 8080");

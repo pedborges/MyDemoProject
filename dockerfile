@@ -23,12 +23,18 @@ COPY . .
 #publish the project
 RUN dotnet publish ${PROJECT_NAME}/${PROJECT_NAME}.csproj \
     -c Release -o /app/publish \
-    --no-restore
+    -p:PublishReadyToRun=true \
+    -p:PublishSingleFile=true \
+    -p:InvariantGlobalization=true \
+    -p:TieredPGO=true \
+    --self-contained=false
 
 #  stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080 \
+    ASPNETCORE_ENVIRONMENT=Production \
+    DOTNET_EnableDiagnostics=0
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Api.dll"]
