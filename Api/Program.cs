@@ -60,11 +60,12 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
-using (var scope = app.Services.CreateScope())
+Task.Run(() =>
 {
+    using var scope = app.Services.CreateScope();
     var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
     initializer.Initialize();
-}
+});
 app.MapGet("/health", () => "Service running");
 app.Run();
-
+Console.WriteLine("✅ Application started and listening on port 8080");
