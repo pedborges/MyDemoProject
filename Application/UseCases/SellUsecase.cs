@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Application.Common;
+using Application.UsecasesContracts;
+using Contracts.Cache;
+using Domain.Contracts;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.Entities;
-using Domain.Contracts;
-using Application.Common;
-using Application.UsecasesContracts;
 
 namespace Application.UseCases
 {
@@ -14,11 +15,13 @@ namespace Application.UseCases
     {
         #region properties
         private readonly ISellRepository _sellRepository;
+       // private readonly ICacheService _cache;
         #endregion
         #region constructor
         public SellUsecase(ISellRepository sellRepository) : base(sellRepository)
-        {           
+        {
             _sellRepository = sellRepository;
+            //_cache=cache;
         }
         #endregion
         #region methods

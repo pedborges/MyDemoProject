@@ -1,4 +1,6 @@
-﻿using Domain.Contracts;
+﻿using Contracts.Cache;
+using Domain.Contracts;
+using Infrastructure.Cache;
 using Infrastructure.DbClient;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,7 @@ namespace Infrastructure
            services.AddDbContext<DBClient>(options =>options.UseSqlite("Data Source=app.db"));
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+           // services.AddScoped<ICacheService, RedisCacheService>();
             services.AddScoped<ISellRepository, SellRepository>();
             services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
             return services;

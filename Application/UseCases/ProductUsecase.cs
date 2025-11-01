@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.UsecasesContracts;
+using Contracts.Cache;
 using Domain.Contracts;
 using Domain.Entities;
 using System;
@@ -15,11 +16,13 @@ namespace Application.UseCases
     {
         #region properties
         private readonly IProductRepository _productRepository;
+       // private readonly ICacheService _cache;
         #endregion
         #region constructor
-        public ProductUsecase(IProductRepository productRepository):base(productRepository)
+        public ProductUsecase(IProductRepository productRepository) : base(productRepository)
         {
             _productRepository = productRepository;
+           // _cache = cache;
         }
         #endregion
         #region methods
@@ -41,7 +44,6 @@ namespace Application.UseCases
                 return Result<int>.Fail("Product not found.");
             }
             return Result<int>.Ok(stock);
-
         }
         #endregion
     }

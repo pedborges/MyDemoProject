@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Application.Common;
 using Application.UsecasesContracts;
+using Contracts.Cache;
 
 namespace Application.UseCases
 {
@@ -15,11 +16,13 @@ namespace Application.UseCases
     {
         #region prorperties
         private readonly ICustomerRepository _customerRepository;
+        //private readonly ICacheService _cache;
         #endregion
         #region constructor
-        public CustomerUsecase(ICustomerRepository customerRepository):base(customerRepository)
+        public CustomerUsecase(ICustomerRepository customerRepository) :base(customerRepository)
         {
             _customerRepository = customerRepository;
+           // _cache = cache;
         }
         #endregion
         #region methods
@@ -51,7 +54,7 @@ namespace Application.UseCases
             if (customers == null || customers.Count == 0)
             {
                 return Result<List<CustomerEntity>>.Fail("There are no customers living in this city.");
-            }
+            }         
             return Result<List<CustomerEntity>>.Ok(customers);
         }
         public async Task<Result<CustomerEntity>> ValidateLogin(LoginDTO login)
