@@ -44,7 +44,7 @@ builder.Services
   });
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
-builder.WebHost.UseUrls("http://*:80");
+builder.WebHost.UseUrls("http://*:8080");
 #endregion
 builder.Services.AddOpenApi();
 var app = builder.Build();
