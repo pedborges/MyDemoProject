@@ -47,7 +47,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.WebHost.UseUrls("http://*:8080");
 #endregion
 builder.Services.AddOpenApi();
-Directory.SetCurrentDirectory("/tmp");
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {   
