@@ -16,13 +16,15 @@ namespace Application.UseCases
     {
         #region prorperties
         private readonly ICustomerRepository _customerRepository;
+        private readonly ILogService _logger;
         //private readonly ICacheService _cache;
         #endregion
         #region constructor
-        public CustomerUsecase(ICustomerRepository customerRepository) :base(customerRepository)
+        public CustomerUsecase(ICustomerRepository customerRepository, ILogService logger) : base(customerRepository,logger)
         {
             _customerRepository = customerRepository;
-           // _cache = cache;
+            _logger = logger;
+            // _cache = cache;
         }
         #endregion
         #region methods
@@ -32,30 +34,64 @@ namespace Application.UseCases
         }
         public async Task<Result<List<CustomerEntity>>> BirthdayVerification()
         {
-            var customers =await _customerRepository.BirthdayCustomers();
-            if (customers == null || customers.Count == 0)
+            try
             {
-                return Result<List<CustomerEntity>>.Fail("No customers have birthdays today.");
+                await _logger.InfoAsync("Fetching customers with birthdays today...");
+                var customers = await _customerRepository.BirthdayCustomers();
+                if (customers == null || customers.Count == 0)
+                {
+                    await _logger.WarnAsync("No customers have birthdays today.");
+                    return Result<List<CustomerEntity>>.Fail("No customers have birthdays today.");
+                }
+                await _logger.InfoAsync($"Found {customers.Count} customers with birthdays today.");
+                return Result<List<CustomerEntity>>.Ok(customers);
             }
-            return Result<List<CustomerEntity>>.Ok(customers);
+            catch (Exception ex)
+            {
+                await _logger.ErrorAsync("Failed to fetch birthday customers.", ex);
+                return Result<List<CustomerEntity>>.Fail("Failed to fetch birthday customers.");
+            }
         }
         public async Task<Result<List<CustomerEntity>>> GetCustomerWithSells()
         {
-            var customers = await _customerRepository.GetCustomersWithSells();
-            if (customers == null || customers.Count == 0)
+            try
             {
-                return Result<List<CustomerEntity>>.Fail("No customers have birthdays today.");
+                await _logger.InfoAsync("Fetching customers with sells...");
+                var customers = await _customerRepository.GetCustomersWithSells();
+
+                if (customers == null || customers.Count == 0)
+                {
+                    await _logger.WarnAsync("No customers with sells were found.");
+                    return Result<List<CustomerEntity>>.Fail("No customers with sells were found.");
+                }
+
+                await _logger.InfoAsync($"Found {customers.Count} customers with sells.");
+                return Result<List<CustomerEntity>>.Ok(customers);
             }
-            return Result<List<CustomerEntity>>.Ok(customers);
+            catch (Exception ex)
+            {
+                await _logger.ErrorAsync("Failed to fetch customers with sells.", ex);
+                return Result<List<CustomerEntity>>.Fail("Failed to fetch customers with sells.");
+            }
         }
         public async Task<Result<List<CustomerEntity>>> GetCustomersByCityAsync(string city)
         {
-            var customers = await _customerRepository.GetCustomersByCityAsync(city);
-            if (customers == null || customers.Count == 0)
+            try
             {
-                return Result<List<CustomerEntity>>.Fail("There are no customers living in this city.");
-            }         
-            return Result<List<CustomerEntity>>.Ok(customers);
+                await _logger.InfoAsync($"Getting Customers by city {city}");
+                var customers = await _customerRepository.GetCustomersByCityAsync(city);
+                if (customers == null || customers.Count == 0)
+                {
+                    await _logger.WarnAsync($"There are no customers living in this city.");
+                    return Result<List<CustomerEntity>>.Fail("There are no customers living in this city.");
+                }
+                return Result<List<CustomerEntity>>.Ok(customers);
+            }
+            catch (Exception ex) 
+            {
+                await _logger.ErrorAsync($"Falied to find users living in this city.",ex);
+                return Result<List<CustomerEntity>>.Fail("Falied to find users living in this city.");
+            }
         }
         public async Task<Result<CustomerEntity>> ValidateLogin(LoginDTO login)
         {

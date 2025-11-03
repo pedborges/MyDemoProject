@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Log
 {
-    public class LogService<T> : ILogService<T>
+    public class LogService<T> : ILogService
     {
         private readonly ILogger<T> _logger;
 
@@ -17,21 +17,21 @@ namespace Infrastructure.Log
             _logger = logger;
         }
 
-        public Task InfoAsync(string message, string? entity = null)
+        public Task InfoAsync(string message)
         {
-            _logger.LogInformation("[{Entity}] {Message}", entity ?? "App", message);
+            _logger.LogInformation("[{Entity}] {Message}", typeof(T).Name ?? "App", message);
             return Task.CompletedTask;
         }
 
-        public Task WarnAsync(string message, string? entity = null)
+        public Task WarnAsync(string message )
         {
-            _logger.LogWarning("[{Entity}] {Message}", entity ?? "App", message);
+            _logger.LogWarning("[{Entity}] {Message}", typeof(T).Name ?? "App", message);
             return Task.CompletedTask;
         }
 
-        public Task ErrorAsync(string message, Exception? ex = null, string? entity = null)
+        public Task ErrorAsync(string message, Exception? ex = null)
         {
-            _logger.LogError(ex, "[{Entity}] {Message}", entity ?? "App", message);
+            _logger.LogError(ex, "[{Entity}] {Message}", typeof(T).Name ?? "App", message);
             return Task.CompletedTask;
         }
     }

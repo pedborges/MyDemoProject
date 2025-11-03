@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Contracts
 {
-    public interface ILogService<T> 
+    public interface ILogService
     {
-        Task InfoAsync(string message, string? entity = null);
-        Task WarnAsync(string message, string? entity = null);
-        Task ErrorAsync(string message, Exception? ex = null, string? entity = null);
+        Task InfoAsync(string message);
+        Task WarnAsync(string message);
+        Task ErrorAsync(string message, Exception? ex = null);
 
     }
 }

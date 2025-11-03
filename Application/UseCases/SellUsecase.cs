@@ -15,12 +15,14 @@ namespace Application.UseCases
     {
         #region properties
         private readonly ISellRepository _sellRepository;
-       // private readonly ICacheService _cache;
+        private readonly ILogService _logger;
+        // private readonly ICacheService _cache;
         #endregion
         #region constructor
-        public SellUsecase(ISellRepository sellRepository) : base(sellRepository)
+        public SellUsecase(ISellRepository sellRepository, ILogService logger) : base(sellRepository, logger)
         {
             _sellRepository = sellRepository;
+            _logger = logger;
             //_cache=cache;
         }
         #endregion
