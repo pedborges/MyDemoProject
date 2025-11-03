@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
             _set = _client.Set<T>();          
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id) => await _set.FindAsync(id);
+        public virtual async Task<T> GetByIdAsync(Guid id) => await _set.FindAsync(id) ;
 
         public virtual async Task<List<T>> GetAllAsync()
             => await _set.AsNoTracking().ToListAsync();

@@ -45,7 +45,10 @@ namespace Api.Controllers
             var result = await _sellUsecase.AddAsync(sellEntity);
             if(result.Success)
             {
-                // Update product stock
+                if (result.Data == null)
+                {
+                    return NotFound(result.Error);
+                }
                 var productResult = await _productUsecase.GetByIdAsync(result.Data.ProductId);
                 if (productResult.Success && productResult.Data != null)
                 {

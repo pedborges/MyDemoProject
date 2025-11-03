@@ -33,6 +33,10 @@ namespace Api.Controllers
             if (result.Success)
             {
                 List<CustomerDTO> customers = new List<CustomerDTO>();
+                if (result.Data == null)
+                {
+                    return NotFound(result.Error);
+                }
                 foreach (var customer in result.Data)
                 {
                     CustomerDTO dto = customer;
@@ -50,6 +54,10 @@ namespace Api.Controllers
             if (result.Success)
             {
                 List<CustomerDTO> customers = new List<CustomerDTO>();
+                if (result.Data == null)
+                {
+                    return NotFound(result.Error);
+                }
                 foreach (var customer in result.Data)
                 {
                     CustomerDTO dto = customer;
@@ -103,6 +111,10 @@ namespace Api.Controllers
                 return NotFound(result.Error);
             }
             List<CustomerDTO> customers = new List<CustomerDTO>();
+            if(result.Data==null)
+            {
+                return NotFound(result.Error);
+            }
             foreach (var customer in result.Data)
             {
                 CustomerDTO dto = customer;
@@ -121,6 +133,10 @@ namespace Api.Controllers
                 return NotFound(result.Error);
             }
             List<CustomerDTO> customers = new List<CustomerDTO>();
+            if (result.Data == null)
+            {
+                return NotFound(result.Error);
+            }
             foreach (var customer in result.Data)
             {
                 CustomerDTO dto = customer;

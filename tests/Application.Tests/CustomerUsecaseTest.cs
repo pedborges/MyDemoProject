@@ -41,17 +41,20 @@ public class CustomerUsecaseTest
         result.Data.Should().HaveCount(2);
         result.Data![0].CustomerCity.Should().Be("Londrina");
     }
+    [Fact]
     public async Task Insert_returns_new_customer()
     {
         var repo = new Mock<ICustomerRepository>();
         repo.Setup(r => r.AddAsync(It.IsAny<CustomerEntity>())).ReturnsAsync(new CustomerEntity
         {
+            Id = Guid.NewGuid(),
             CustomerName = "Pedro",
             CustomerEmail = "pedropinguellihotmail.com"
         });
         var customerUsecase = new CustomerUsecase(repo.Object);
         var result = await customerUsecase.AddAsync(new CustomerEntity
         {
+            Id = Guid.NewGuid(),
             CustomerName = "Pedro",
             CustomerEmail = "pedropinguellihotmail.com"
         });

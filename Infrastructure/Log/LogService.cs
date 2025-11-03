@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Log
 {
-    public class LogService<T> : ILogService
+    public class LogService<T> : ILogService<T>
     {
         private readonly ILogger<T> _logger;
 

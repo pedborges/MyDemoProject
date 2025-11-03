@@ -92,7 +92,7 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
-Task.Run(() =>
+ Task.Run(() =>
 {
     using var scope = app.Services.CreateScope();
     var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
