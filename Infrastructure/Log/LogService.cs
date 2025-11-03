@@ -8,30 +8,30 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Log
 {
-    public class LogService<T> : ILogService
+    public class LogService : ILogService
     {
-        private readonly ILogger<T> _logger;
+        private readonly ILogger<LogService> _logger;
 
-        public LogService(ILogger<T> logger)
+        public LogService(ILogger<LogService> logger)
         {
             _logger = logger;
         }
 
         public Task InfoAsync(string message)
         {
-            _logger.LogInformation("[{Entity}] {Message}", typeof(T).Name ?? "App", message);
+            _logger.LogInformation("[App] {Message}", message);
             return Task.CompletedTask;
         }
 
         public Task WarnAsync(string message )
         {
-            _logger.LogWarning("[{Entity}] {Message}", typeof(T).Name ?? "App", message);
+            _logger.LogWarning("[App] {Message}", message);
             return Task.CompletedTask;
         }
 
         public Task ErrorAsync(string message, Exception? ex = null)
         {
-            _logger.LogError(ex, "[{Entity}] {Message}", typeof(T).Name ?? "App", message);
+            _logger.LogError(ex, "[App] {Message}", message);
             return Task.CompletedTask;
         }
     }

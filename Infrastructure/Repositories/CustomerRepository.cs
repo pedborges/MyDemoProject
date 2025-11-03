@@ -34,7 +34,7 @@ namespace Infrastructure.Repositories
         public async Task<CustomerEntity> ValidateUser(CustomerEntity login)
         {
            var user = await _set.AsNoTracking().Where(c => c.CustomerEmail == login.CustomerEmail && c.CustomerPassword == login.CustomerPassword).FirstOrDefaultAsync();
-           return user ?? new CustomerEntity();
+           return user ;
         }
     }
 }
