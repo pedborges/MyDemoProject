@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public sealed class SellEntity: BaseEntity
+    public sealed record SellEntity: BaseEntity
     {
         public Guid CustomerId { get; set; }
         public Guid TransactionId { get; set; }

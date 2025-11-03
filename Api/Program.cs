@@ -1,3 +1,5 @@
+using Amazon;
+using Amazon.CloudWatchLogs;
 using Application;
 using Application.Common;
 using Application.UseCases;
@@ -7,6 +9,8 @@ using Infrastructure.DbClient;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Sinks.AwsCloudWatch;
 using System;
 using System.Text;
 using TokenService.Service;
@@ -14,6 +18,34 @@ using TokenService.Service;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
+#region Log Implementation
+
+var logGroupName = "MyDemoProjectLogs";
+var region = RegionEndpoint.USEast2;
+
+//creating an Aws cloudWatch instance
+var cloudWatchClient = new AmazonCloudWatchLogsClient(region);
+var cloudWatchOptions = new CloudWatchSinkOptions
+{
+    LogGroupName = logGroupName,
+    MinimumLogEventLevel = Serilog.Events.LogEventLevel.Information,
+    CreateLogGroup = true,
+    LogStreamNameProvider = new DefaultLogStreamProvider(),
+    TextFormatter = new Serilog.Formatting.Json.JsonFormatter()
+};
+
+//here it will bind the logger serilog within cloudWatch
+Log.Logger = new LoggerConfiguration()
+    .Enrich.WithEnvironmentName()
+    .Enrich.WithMachineName()
+    .Enrich.WithProcessId()
+    .WriteTo.Console()
+    .WriteTo.AmazonCloudWatch(cloudWatchOptions, cloudWatchClient)
+    .CreateLogger();
+
+
+builder.Host.UseSerilog();
+#endregion
 #region Dependencies Injection - Register layers
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);

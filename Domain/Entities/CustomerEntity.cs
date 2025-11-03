@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public sealed class CustomerEntity: BaseEntity
+    public sealed record CustomerEntity: BaseEntity
     {        
         public string CustomerName { get; set; }=string.Empty;
         public string CustomerEmail { get; set; } = string.Empty;
@@ -20,3 +20,4 @@ namespace Domain.Entities
     }
 
 }
+
