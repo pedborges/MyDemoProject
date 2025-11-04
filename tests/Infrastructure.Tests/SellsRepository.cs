@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Tests;
 
-public class GetSellByCustomerID
+public class SellsRepository
 {
     //first add the sellEntity and then get it using customer id method
     [Fact]
