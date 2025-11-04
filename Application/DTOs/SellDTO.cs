@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs
 {
-    public class SellDTO
+    public record SellDTO
     {
         public Guid SellId { get; set; }
         public Guid CustomerId { get; set; }

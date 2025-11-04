@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.DTOs
 {
-    public class ProductDTO
+    public record ProductDTO
     {
         public Guid ProductID { get; set; }
         public string ProductName { get; set; } = string.Empty;
