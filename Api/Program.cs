@@ -15,6 +15,10 @@ using System;
 using System.Text;
 using TokenService.Service;
 
+//we can also use SIGNALR withs hubs to cxomunicate streams data
+//new implementations
+//
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
@@ -92,12 +96,13 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
- Task.Run(() =>
+Task.Run(() =>
 {
-    using var scope = app.Services.CreateScope();
-    var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
-    initializer.Initialize();
+   using var scope = app.Services.CreateScope();
+   var initializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>();
+   initializer.Initialize();
 });
+Console.WriteLine("✅ Application started and listening on port 8080");
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 app.Run();
-Console.WriteLine("✅ Application started and listening on port 8080");
+

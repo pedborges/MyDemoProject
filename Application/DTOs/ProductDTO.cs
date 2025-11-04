@@ -15,7 +15,7 @@ namespace Application.DTOs
         public decimal ProductPrice { get; set; }
         public int ProductStock { get; set; }
 
-        public static implicit operator ProductDTO(ProductEntity entity)
+        public static implicit operator ProductDTO(ProductEntity entity) //this guy here i use to substitute the automapper
         {
             return new ProductDTO
             {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases
 {
-    public class ProductUsecase: BaseUsecase<ProductEntity>, IProductUsecase
+    public class ProductUsecase : BaseUsecase<ProductEntity>, IProductUsecase
     {
         #region properties
         private readonly IProductRepository _productRepository;
@@ -30,15 +30,15 @@ namespace Application.UseCases
         #region methods
         public async Task<Result<ProductEntity>> GetProductByNameAsync(string name)
         {
-            try 
+            try
             {
-            await _logger.InfoAsync($"Searching for product with name '{name}'.");
-            var product = await _productRepository.GetProductByNameAsync(name);
-            if (product == null || product.ProductName == string.Empty)
-            {
-                await _logger.WarnAsync($" Product with name '{name}' not found.");
-                return  Result<ProductEntity>.Fail("Product not found.");
-            }
+                await _logger.InfoAsync($"Searching for product with name '{name}'.");
+                var product = await _productRepository.GetProductByNameAsync(name);
+                if (product == null || product.ProductName == string.Empty)
+                {
+                    await _logger.WarnAsync($" Product with name '{name}' not found.");
+                    return Result<ProductEntity>.Fail("Product not found.");
+                }
                 await _logger.InfoAsync($" Successfully found product '{product.ProductName}'.");
                 return Result<ProductEntity>.Ok(product);
             }
